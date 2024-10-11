@@ -1,0 +1,22 @@
+linters:
+  enable-all: true
+  disable:
+    - execinquery
+    - exportloopref
+    - gomnd
+
+run:
+  allow-parallel-runners: true
+
+linters-settings:
+  depguard:
+    rules:
+      main:
+        # List of allowed packages.
+        allow:
+          - $gostd
+          - github.com/cockroachdb/errors
+        # Packages that are not allowed where the value is a suggestion.
+        deny:
+          - pkg: "github.com/pkg/errors"
+            desc: Should be replaced by github.com/cockroachdb/errors
