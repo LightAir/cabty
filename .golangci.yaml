@@ -16,7 +16,20 @@ linters-settings:
         allow:
           - $gostd
           - github.com/cockroachdb/errors
+          - github.com/LightAir/cabty
+          - github.com/ilyakaznacheev/cleanenv
+          - github.com/rs/zerolog
+          - github.com/spf13
+          - github.com/joho/godotenv
         # Packages that are not allowed where the value is a suggestion.
         deny:
           - pkg: "github.com/pkg/errors"
             desc: Should be replaced by github.com/cockroachdb/errors
+
+issues:
+  exclude-rules:
+    - path: cmd/.*
+      linters:
+        - forbidigo
+        - gochecknoinits
+        - exhaustruct
