@@ -5,6 +5,8 @@ import (
 
 	"github.com/LightAir/cabty/internal/app"
 	"github.com/LightAir/cabty/internal/config"
+	"github.com/LightAir/cabty/internal/packer"
+	"github.com/LightAir/cabty/internal/uploader"
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
@@ -47,7 +49,13 @@ var rootCmd = &cobra.Command{ //nolint:gochecknoglobals
 
 		log.Info().Msg("programm started")
 
-		if err = app.Run(&cfg); err != nil {
+		packerService := packer.NewService()
+
+		uploaderService := uploader.NewService()
+
+		service := app.NewService(packerService, uploaderService)
+
+		if err = service.Run(&cfg); err != nil {
 			log.Err(err).Msg("Error read env")
 
 			return
